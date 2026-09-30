@@ -26,7 +26,7 @@
   },
   "config_subentries": {
     "reminder": {
-      "title": "Reminder",
+      "entry_type": "Reminder",
       "step": {
         "user": {
           "title": "Add reminder",
