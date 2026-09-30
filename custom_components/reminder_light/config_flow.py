@@ -3,7 +3,7 @@
 from __future__ import annotations
 
 from datetime import time
-from typing import Any
+from typing import Any, override
 from uuid import uuid4
 
 import probatio
@@ -70,6 +70,26 @@ _SCHEDULE_OPTIONS = [
     selector.SelectOptionDict(value=SCHEDULE_WEEKENDS, label="Weekends"),
     selector.SelectOptionDict(value=SCHEDULE_CUSTOM, label="Custom days"),
 ]
+
+
+class _VisibleSelectSelector(selector.SelectSelector):
+    """Select selector with a Home Assistant form visibility condition."""
+
+    def __init__(
+        self,
+        config: selector.SelectSelectorConfig,
+        visible: dict[str, Any],
+    ) -> None:
+        """Initialize the selector and its form visibility condition."""
+
+        super().__init__(config)
+        self._visible = visible
+
+    @override
+    def serialize(self) -> dict[str, Any]:
+        """Serialize the selector with visibility at the form-field level."""
+
+        return {**super().serialize(), "visible": self._visible}
 
 
 class ReminderLightConfigFlow(config_entries.ConfigFlow, domain=DOMAIN):
@@ -300,18 +320,16 @@ def _reminder_schema(values: dict[str, Any]) -> probatio.Schema:
             probatio.Required(
                 CONF_WEEKDAYS,
                 default=weekdays,
-                description={
-                    "visible": {
-                        "field": CONF_SCHEDULE_PATTERN,
-                        "value": SCHEDULE_CUSTOM,
-                    }
-                },
-            ): selector.SelectSelector(
+            ): _VisibleSelectSelector(
                 selector.SelectSelectorConfig(
                     options=_WEEKDAY_OPTIONS,
                     multiple=True,
                     mode=selector.SelectSelectorMode.DROPDOWN,
-                )
+                ),
+                visible={
+                    "field": CONF_SCHEDULE_PATTERN,
+                    "value": SCHEDULE_CUSTOM,
+                },
             ),
             probatio.Required(
                 CONF_REMINDER_TIMES,
