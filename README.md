@@ -1,5 +1,7 @@
 # Reminder Light
 
+[![Open your Home Assistant instance and open Reminder Light in HACS.](https://my.home-assistant.io/badges/hacs_repository.svg)](https://my.home-assistant.io/redirect/hacs_repository/?owner=coltmort&repository=reminder-light&category=integration)
+
 Reminder Light is a custom Home Assistant integration that turns a selected light
 into a visible reminder display. The integration owns reminder schedules, due
 state, color, and light output while reusing existing Home Assistant entities as
@@ -26,14 +28,13 @@ state change and does not communicate with the underlying hardware protocol.
 
 ### HACS custom repository
 
-1. In HACS, open the menu and choose **Custom repositories**.
+1. Use the **Open your Home Assistant** button above, or open the HACS menu and
+   choose **Custom repositories**.
 2. Add `https://github.com/coltmort/reminder-light` as an **Integration**.
-3. Install Reminder Light and restart Home Assistant.
-4. Open **Settings > Devices & services > Add integration** and search for
+3. Open Reminder Light in HACS, choose version `v0.1.0`, and download it.
+4. Restart Home Assistant.
+5. Open **Settings > Devices & services > Add integration** and search for
    **Reminder Light**.
-
-The repository must be accessible to the GitHub account used by HACS while it is
-private. Public releases can be installed without private-repository access.
 
 ### Manual installation
 
