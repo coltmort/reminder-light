@@ -14,8 +14,8 @@ using Home Assistant's native trigger system to decide when a task is complete.
 
 - Create and manage multiple reminders from **Settings > Devices & services >
   Reminder Light**.
-- Schedule each task every day, on weekdays, on weekends, or on custom days.
-  Add extra daily task times only when they are needed.
+- Schedule each task every day, on weekdays, on weekends, or on custom days in
+  one responsive editor. Add, edit, remove, and reorder daily task times.
 - Use native Home Assistant state, device, event, time, or other triggers as
   completion signals. This includes physical button presses when the button's
   integration exposes a device trigger.
@@ -59,13 +59,13 @@ Use the **gear** on the reminder row to edit its schedule. The nested device is
 named **status and controls** because its pencil edits entity settings, not the
 reminder schedule.
 
-Reminder setup is divided into short steps:
+Reminder setup stays in one dialog:
 
-1. Name the task and choose its color.
-2. Choose **Every day**, **Weekdays**, **Weekends**, or **Custom days** and set
-   the first task time.
-3. Add or remove more task times only when needed.
-4. Optionally configure one or more completion triggers.
+1. Name the task and choose **Every day**, **Weekdays**, **Weekends**, or
+   **Custom days**. Choosing **Custom days** immediately reveals the weekday
+   selector.
+2. Use **Add** under **Task times** to include another time only when needed.
+3. Choose the light color and optionally configure completion triggers.
 
 For completion, choose **Add trigger**. The editor is the same trigger editor
 used by Home Assistant automations. For a physical button or remote, switch to

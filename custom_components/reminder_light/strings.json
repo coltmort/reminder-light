@@ -34,67 +34,43 @@
       "step": {
         "user": {
           "title": "Add reminder",
-          "description": "Name the task and choose how it appears on the reminder light.",
+          "description": "Set the task schedule, light color, and optional completion triggers.",
           "data": {
             "reminder_name": "Task name",
+            "schedule_pattern": "Repeat",
+            "weekdays": "Days of the week",
+            "reminder_times": "Task times",
             "reminder_color": "Light color",
+            "completion_triggers": "Complete when",
             "enabled": "Reminder enabled"
+          },
+          "data_description": {
+            "reminder_times": "Use Add to include another time on each selected day.",
+            "completion_triggers": "For a physical button or remote, choose Add trigger, switch to By type, then choose Device. The Button type is for command entities, not physical button presses."
           }
         },
         "reconfigure": {
           "title": "Edit reminder schedule",
-          "description": "Update this reminder's name, appearance, schedule, and completion trigger.",
+          "description": "Update the task schedule, light color, and completion triggers.",
           "data": {
             "reminder_name": "Task name",
-            "reminder_color": "Light color",
-            "enabled": "Reminder enabled"
-          }
-        },
-        "schedule": {
-          "title": "When should this task be due?",
-          "data": {
             "schedule_pattern": "Repeat",
-            "first_time": "Task time"
-          }
-        },
-        "custom_days": {
-          "title": "Choose custom days",
-          "data": {
-            "weekdays": "Days of the week"
-          }
-        },
-        "times": {
-          "title": "Task times",
-          "description": "Current task times: {times}",
-          "menu_options": {
-            "add_time": "Add another task time",
-            "remove_time": "Remove a task time",
-            "completion": "Continue to completion setup"
-          }
-        },
-        "add_time": {
-          "title": "Add another task time",
-          "data": {
-            "additional_time": "Task time"
-          }
-        },
-        "remove_time": {
-          "title": "Remove a task time",
-          "data": {
-            "remove_time": "Time to remove"
-          }
-        },
-        "completion": {
-          "title": "How is this task completed?",
-          "description": "For a physical button or remote, choose **Add trigger**, switch to **By type**, then choose **Device**. The **Button** type is for command entities, not physical button presses. Leave this empty to use only the manual complete control.",
-          "data": {
-            "completion_triggers": "Completion triggers"
+            "weekdays": "Days of the week",
+            "reminder_times": "Task times",
+            "reminder_color": "Light color",
+            "completion_triggers": "Complete when",
+            "enabled": "Reminder enabled"
+          },
+          "data_description": {
+            "reminder_times": "Use Add to include another time on each selected day.",
+            "completion_triggers": "For a physical button or remote, choose Add trigger, switch to By type, then choose Device. The Button type is for command entities, not physical button presses."
           }
         }
       },
       "error": {
         "name_required": "Enter a task name.",
         "weekday_required": "Choose at least one day of the week.",
+        "time_required": "Add at least one task time.",
         "duplicate_time": "That task time is already configured.",
         "max_times": "This reminder already has the maximum number of task times.",
         "invalid_trigger": "One or more completion triggers are not valid."
