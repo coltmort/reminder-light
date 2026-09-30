@@ -27,6 +27,10 @@
   "config_subentries": {
     "reminder": {
       "entry_type": "Reminder",
+      "initiate_flow": {
+        "user": "Add reminder",
+        "reconfigure": "Edit reminder"
+      },
       "step": {
         "user": {
           "title": "Add reminder",
