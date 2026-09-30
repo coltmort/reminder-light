@@ -1,0 +1,62 @@
+{
+  "config": {
+    "step": {
+      "user": {
+        "title": "Set up Reminder Light",
+        "description": "Choose the light Reminder Light controls, then create the first reminder.",
+        "data": {
+          "name": "Name",
+          "output_light": "Output light",
+          "rotation_seconds": "Rotation time",
+          "brightness": "Brightness",
+          "reminder_name": "Reminder name",
+          "reminder_time": "Reminder time",
+          "reminder_color": "Reminder color",
+          "completion_entity": "Completion entity",
+          "completion_state": "Complete when state becomes"
+        }
+      }
+    },
+    "error": {
+      "invalid_time": "Use 24-hour time in HH:MM format.",
+      "invalid_color": "Use a color in #RRGGBB format."
+    },
+    "abort": {
+      "already_configured": "Reminder Light is already configured."
+    }
+  },
+  "options": {
+    "step": {
+      "init": {
+        "title": "Reminder Light options",
+        "data": {
+          "name": "Name",
+          "output_light": "Output light",
+          "rotation_seconds": "Rotation time",
+          "brightness": "Brightness",
+          "reminder_name": "Reminder name",
+          "reminder_time": "Reminder time",
+          "reminder_color": "Reminder color",
+          "completion_entity": "Completion entity",
+          "completion_state": "Complete when state becomes"
+        }
+      }
+    },
+    "error": {
+      "invalid_time": "Use 24-hour time in HH:MM format.",
+      "invalid_color": "Use a color in #RRGGBB format."
+    }
+  },
+  "entity": {
+    "binary_sensor": {
+      "reminder_due": {
+        "name": "Reminder due"
+      }
+    },
+    "button": {
+      "manual_complete": {
+        "name": "Complete reminder"
+      }
+    }
+  }
+}

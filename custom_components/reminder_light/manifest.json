@@ -1,0 +1,14 @@
+{
+  "domain": "reminder_light",
+  "name": "Reminder Light",
+  "codeowners": ["@coltmort"],
+  "config_flow": true,
+  "dependencies": [],
+  "documentation": "https://github.com/coltmort/reminder-light",
+  "integration_type": "helper",
+  "iot_class": "calculated",
+  "issue_tracker": "https://github.com/coltmort/reminder-light/issues",
+  "requirements": [],
+  "single_config_entry": true,
+  "version": "0.1.0"
+}
