@@ -27,7 +27,8 @@ jobs:
           fi
 
       - name: Build integration archive
-        run: zip -r reminder_light.zip custom_components/reminder_light
+        working-directory: custom_components/reminder_light
+        run: zip -r ../../reminder_light.zip .
 
       - name: Create GitHub release
         env:

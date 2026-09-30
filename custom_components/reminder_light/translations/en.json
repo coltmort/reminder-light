@@ -2,60 +2,72 @@
   "config": {
     "step": {
       "user": {
-        "title": "Set up Reminder Light",
-        "description": "Choose the light Reminder Light controls, then create the first reminder.",
+        "title": "Set up the reminder display",
+        "description": "Choose the light shared by all reminders. You will create your first reminder next.",
         "data": {
-          "name": "Name",
-          "output_light": "Output light",
-          "rotation_seconds": "Rotation time",
-          "brightness": "Brightness",
-          "reminder_name": "Reminder name",
-          "reminder_time": "Reminder time",
-          "reminder_color": "Reminder color",
-          "completion_entity": "Completion entity",
-          "completion_state": "Complete when state becomes"
+          "output_light": "Reminder light",
+          "rotation_seconds": "Color rotation interval",
+          "brightness": "Reminder brightness"
+        }
+      },
+      "reconfigure": {
+        "title": "Edit reminder display",
+        "description": "These settings are shared by every Reminder Light reminder.",
+        "data": {
+          "output_light": "Reminder light",
+          "rotation_seconds": "Color rotation interval",
+          "brightness": "Reminder brightness"
         }
       }
-    },
-    "error": {
-      "invalid_time": "Use 24-hour time in HH:MM format.",
-      "invalid_color": "Use a color in #RRGGBB format."
     },
     "abort": {
       "already_configured": "Reminder Light is already configured."
     }
   },
-  "options": {
-    "step": {
-      "init": {
-        "title": "Reminder Light options",
-        "data": {
-          "name": "Name",
-          "output_light": "Output light",
-          "rotation_seconds": "Rotation time",
-          "brightness": "Brightness",
-          "reminder_name": "Reminder name",
-          "reminder_time": "Reminder time",
-          "reminder_color": "Reminder color",
-          "completion_entity": "Completion entity",
-          "completion_state": "Complete when state becomes"
+  "config_subentries": {
+    "reminder": {
+      "title": "Reminder",
+      "step": {
+        "user": {
+          "title": "Add reminder",
+          "description": "Choose when this task is due and optionally add one or more Home Assistant triggers that complete it.",
+          "data": {
+            "reminder_name": "Task name",
+            "weekdays": "Days of the week",
+            "schedule_time_1": "First time",
+            "schedule_time_2": "Second time (optional)",
+            "schedule_time_3": "Third time (optional)",
+            "schedule_time_4": "Fourth time (optional)",
+            "schedule_time_5": "Fifth time (optional)",
+            "schedule_time_6": "Sixth time (optional)",
+            "reminder_color": "Light color",
+            "completion_triggers": "Complete when",
+            "enabled": "Reminder enabled"
+          }
+        },
+        "reconfigure": {
+          "title": "Edit reminder",
+          "description": "Update this task's schedule, color, and completion triggers.",
+          "data": {
+            "reminder_name": "Task name",
+            "weekdays": "Days of the week",
+            "schedule_time_1": "First time",
+            "schedule_time_2": "Second time (optional)",
+            "schedule_time_3": "Third time (optional)",
+            "schedule_time_4": "Fourth time (optional)",
+            "schedule_time_5": "Fifth time (optional)",
+            "schedule_time_6": "Sixth time (optional)",
+            "reminder_color": "Light color",
+            "completion_triggers": "Complete when",
+            "enabled": "Reminder enabled"
+          }
         }
-      }
-    },
-    "error": {
-      "invalid_time": "Use 24-hour time in HH:MM format.",
-      "invalid_color": "Use a color in #RRGGBB format."
-    }
-  },
-  "entity": {
-    "binary_sensor": {
-      "reminder_due": {
-        "name": "Reminder due"
-      }
-    },
-    "button": {
-      "manual_complete": {
-        "name": "Complete reminder"
+      },
+      "error": {
+        "name_required": "Enter a task name.",
+        "time_required": "Choose at least one reminder time.",
+        "weekday_required": "Choose at least one day of the week.",
+        "invalid_trigger": "One or more completion triggers are not valid."
       }
     }
   }

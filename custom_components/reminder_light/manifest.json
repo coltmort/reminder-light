@@ -5,10 +5,10 @@
   "config_flow": true,
   "dependencies": [],
   "documentation": "https://github.com/coltmort/reminder-light",
-  "integration_type": "helper",
+  "integration_type": "service",
   "iot_class": "calculated",
   "issue_tracker": "https://github.com/coltmort/reminder-light/issues",
   "requirements": [],
   "single_config_entry": true,
-  "version": "0.1.0"
+  "version": "0.2.0"
 }
