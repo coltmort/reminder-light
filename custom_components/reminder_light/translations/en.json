@@ -29,48 +29,74 @@
       "entry_type": "Reminder",
       "initiate_flow": {
         "user": "Add reminder",
-        "reconfigure": "Edit reminder"
+        "reconfigure": "Edit reminder schedule"
       },
       "step": {
         "user": {
           "title": "Add reminder",
-          "description": "Choose when this task is due and optionally add one or more Home Assistant triggers that complete it.",
+          "description": "Name the task and choose how it appears on the reminder light.",
           "data": {
             "reminder_name": "Task name",
-            "weekdays": "Days of the week",
-            "schedule_time_1": "First time",
-            "schedule_time_2": "Second time (optional)",
-            "schedule_time_3": "Third time (optional)",
-            "schedule_time_4": "Fourth time (optional)",
-            "schedule_time_5": "Fifth time (optional)",
-            "schedule_time_6": "Sixth time (optional)",
             "reminder_color": "Light color",
-            "completion_triggers": "Complete when",
             "enabled": "Reminder enabled"
           }
         },
         "reconfigure": {
-          "title": "Edit reminder",
-          "description": "Update this task's schedule, color, and completion triggers.",
+          "title": "Edit reminder schedule",
+          "description": "Update this reminder's name, appearance, schedule, and completion trigger.",
           "data": {
             "reminder_name": "Task name",
-            "weekdays": "Days of the week",
-            "schedule_time_1": "First time",
-            "schedule_time_2": "Second time (optional)",
-            "schedule_time_3": "Third time (optional)",
-            "schedule_time_4": "Fourth time (optional)",
-            "schedule_time_5": "Fifth time (optional)",
-            "schedule_time_6": "Sixth time (optional)",
             "reminder_color": "Light color",
-            "completion_triggers": "Complete when",
             "enabled": "Reminder enabled"
+          }
+        },
+        "schedule": {
+          "title": "When should this task be due?",
+          "data": {
+            "schedule_pattern": "Repeat",
+            "first_time": "Task time"
+          }
+        },
+        "custom_days": {
+          "title": "Choose custom days",
+          "data": {
+            "weekdays": "Days of the week"
+          }
+        },
+        "times": {
+          "title": "Task times",
+          "description": "Current task times: {times}",
+          "menu_options": {
+            "add_time": "Add another task time",
+            "remove_time": "Remove a task time",
+            "completion": "Continue to completion setup"
+          }
+        },
+        "add_time": {
+          "title": "Add another task time",
+          "data": {
+            "additional_time": "Task time"
+          }
+        },
+        "remove_time": {
+          "title": "Remove a task time",
+          "data": {
+            "remove_time": "Time to remove"
+          }
+        },
+        "completion": {
+          "title": "How is this task completed?",
+          "description": "For a physical button or remote, choose **Add trigger**, switch to **By type**, then choose **Device**. The **Button** type is for command entities, not physical button presses. Leave this empty to use only the manual complete control.",
+          "data": {
+            "completion_triggers": "Completion triggers"
           }
         }
       },
       "error": {
         "name_required": "Enter a task name.",
-        "time_required": "Choose at least one reminder time.",
         "weekday_required": "Choose at least one day of the week.",
+        "duplicate_time": "That task time is already configured.",
+        "max_times": "This reminder already has the maximum number of task times.",
         "invalid_trigger": "One or more completion triggers are not valid."
       }
     }

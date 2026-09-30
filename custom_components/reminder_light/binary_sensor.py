@@ -35,7 +35,9 @@ class ReminderDueBinarySensor(
 ):
     """Expose whether one reminder is currently due."""
 
-    _attr_has_entity_name = False
+    _attr_entity_registry_visible_default = False
+    _attr_has_entity_name = True
+    _attr_name = "Due"
 
     def __init__(
         self, coordinator: ReminderLightCoordinator, reminder_id: str
@@ -46,12 +48,11 @@ class ReminderDueBinarySensor(
         reminder = coordinator.reminder(reminder_id)
         self._reminder_id = reminder_id
         self._attr_unique_id = f"{coordinator.entry.entry_id}_{reminder_id}_due"
-        self._attr_name = f"{reminder.name} due"
         self._attr_device_info = DeviceInfo(
             identifiers={(DOMAIN, f"{coordinator.entry.entry_id}_{reminder_id}")},
-            name=reminder.name,
+            name=f"{reminder.name} reminder controls",
             manufacturer="Reminder Light",
-            model="Scheduled reminder",
+            model="Reminder status and controls",
         )
 
     @property

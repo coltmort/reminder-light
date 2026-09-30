@@ -5,7 +5,9 @@ from __future__ import annotations
 from types import MappingProxyType
 
 from homeassistant.config_entries import ConfigEntry, ConfigSubentry
+from homeassistant.const import Platform
 from homeassistant.core import HomeAssistant
+from homeassistant.helpers import entity_registry as er
 
 from .const import (
     CONF_BRIGHTNESS,
@@ -60,10 +62,22 @@ async def async_unload_entry(hass: HomeAssistant, entry: ConfigEntry) -> bool:
 
 
 async def async_migrate_entry(hass: HomeAssistant, entry: ConfigEntry) -> bool:
-    """Migrate the original single-reminder entry to reminder subentries."""
+    """Migrate older entries and apply new entity visibility defaults."""
 
-    if entry.version >= 2:
-        return True
+    if entry.version == 1:
+        await _async_migrate_single_reminder_entry(hass, entry)
+
+    if entry.version == 2:
+        _hide_existing_reminder_entities(hass, entry)
+        hass.config_entries.async_update_entry(entry, version=3)
+
+    return entry.version == 3
+
+
+async def _async_migrate_single_reminder_entry(
+    hass: HomeAssistant, entry: ConfigEntry
+) -> None:
+    """Migrate the original single-reminder entry to a reminder subentry."""
 
     config = {**entry.data, **entry.options}
     reminder_id = "primary"
@@ -111,7 +125,7 @@ async def async_migrate_entry(hass: HomeAssistant, entry: ConfigEntry) -> bool:
                     }
                 ),
                 subentry_type=SUBENTRY_TYPE_REMINDER,
-                title=reminder_name,
+                title=f"Reminder: {reminder_name}",
                 unique_id=reminder_id,
             ),
         )
@@ -128,7 +142,32 @@ async def async_migrate_entry(hass: HomeAssistant, entry: ConfigEntry) -> bool:
         title="Reminder Light",
         version=2,
     )
-    return True
+
+
+def _hide_existing_reminder_entities(
+    hass: HomeAssistant, entry: ConfigEntry
+) -> None:
+    """Apply the new hidden-by-default setting once to existing entities."""
+
+    registry = er.async_get(hass)
+    for subentry in entry.subentries.values():
+        if subentry.subentry_type != SUBENTRY_TYPE_REMINDER:
+            continue
+        reminder_id = subentry.data[CONF_REMINDER_ID]
+        for platform, suffix in (
+            (Platform.BINARY_SENSOR, "due"),
+            (Platform.BUTTON, "complete"),
+        ):
+            unique_id = f"{entry.entry_id}_{reminder_id}_{suffix}"
+            entity_id = registry.async_get_entity_id(platform, DOMAIN, unique_id)
+            if entity_id is None:
+                continue
+            registry_entry = registry.async_get(entity_id)
+            if registry_entry is not None and registry_entry.hidden_by is None:
+                registry.async_update_entity(
+                    entity_id,
+                    hidden_by=er.RegistryEntryHider.INTEGRATION,
+                )
 
 
 async def _async_update_listener(hass: HomeAssistant, entry: ConfigEntry) -> None:

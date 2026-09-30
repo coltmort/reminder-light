@@ -14,7 +14,8 @@ using Home Assistant's native trigger system to decide when a task is complete.
 
 - Create and manage multiple reminders from **Settings > Devices & services >
   Reminder Light**.
-- Schedule each task on selected weekdays at up to six times per day.
+- Schedule each task every day, on weekdays, on weekends, or on custom days.
+  Add extra daily task times only when they are needed.
 - Use native Home Assistant state, device, event, time, or other triggers as
   completion signals. This includes physical button presses when the button's
   integration exposes a device trigger.
@@ -48,18 +49,35 @@ Initial setup asks only for the shared display:
 
 - **Reminder light** is the light used to show due task colors.
 - **Color rotation interval** controls how often the color changes when multiple
-  tasks are due.
+  tasks are due. It accepts quarter-second increments starting at 0.25 seconds.
 - **Reminder brightness** is used whenever the integration turns on the light.
 
 The first reminder form opens immediately afterward. Later, open **Settings >
-Devices & services > Reminder Light** and use **Add entry** to create another
+Devices & services > Reminder Light** and use **Add reminder** to create another
 reminder. Each reminder entry can be reconfigured or deleted from that page.
+Use the **gear** on the reminder row to edit its schedule. The nested device is
+named **status and controls** because its pencil edits entity settings, not the
+reminder schedule.
+
+Reminder setup is divided into short steps:
+
+1. Name the task and choose its color.
+2. Choose **Every day**, **Weekdays**, **Weekends**, or **Custom days** and set
+   the first task time.
+3. Add or remove more task times only when needed.
+4. Optionally configure one or more completion triggers.
 
 For completion, choose **Add trigger**. The editor is the same trigger editor
-used by Home Assistant automations. For a physical button, prefer its **Device**
-trigger and select the press action. If it has no device trigger but exposes an
-event entity, use a state trigger for that entity instead. Completion triggers
-only act while their reminder is due.
+used by Home Assistant automations. For a physical button or remote, switch to
+**By type**, choose **Device**, select the device, and then select its press
+event. Home Assistant's **Button** trigger category refers to command entities;
+it does not generally represent physical button presses. If a device has no
+device trigger but exposes an event entity, use that entity's trigger instead.
+Completion triggers only act while their reminder is due.
+
+The generated **Due** and **Mark complete** entities are hidden by default to
+keep dashboards and entity pickers tidy. They remain available to unhide when a
+dashboard or automation needs them. The combined calendar remains visible.
 
 ## Weekly calendar
 

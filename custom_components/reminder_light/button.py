@@ -31,7 +31,9 @@ async def async_setup_entry(
 class ManualCompleteButton(CoordinatorEntity[ReminderLightCoordinator], ButtonEntity):
     """Manually complete one configured reminder."""
 
-    _attr_has_entity_name = False
+    _attr_entity_registry_visible_default = False
+    _attr_has_entity_name = True
+    _attr_name = "Mark complete"
 
     def __init__(
         self, coordinator: ReminderLightCoordinator, reminder_id: str
@@ -42,12 +44,11 @@ class ManualCompleteButton(CoordinatorEntity[ReminderLightCoordinator], ButtonEn
         reminder = coordinator.reminder(reminder_id)
         self._reminder_id = reminder_id
         self._attr_unique_id = f"{coordinator.entry.entry_id}_{reminder_id}_complete"
-        self._attr_name = f"Complete {reminder.name}"
         self._attr_device_info = DeviceInfo(
             identifiers={(DOMAIN, f"{coordinator.entry.entry_id}_{reminder_id}")},
-            name=reminder.name,
+            name=f"{reminder.name} reminder controls",
             manufacturer="Reminder Light",
-            model="Scheduled reminder",
+            model="Reminder status and controls",
         )
 
     async def async_press(self) -> None:
