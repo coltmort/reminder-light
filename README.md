@@ -21,6 +21,8 @@ using Home Assistant's native trigger system to decide when a task is complete.
   integration exposes a device trigger.
 - Pick a color for every task. If several reminders are due, the selected light
   rotates through their colors.
+- Preview a task color on the configured light while editing. The light follows
+  the color picker live and turns off when previewing stops or the editor closes.
 - View all enabled reminder occurrences in the generated **Reminder Light
   schedule** calendar entity and add it to Home Assistant's Calendar dashboard.
 - Complete any due task manually with its generated button entity.
@@ -65,7 +67,9 @@ Reminder setup stays in one dialog:
    **Custom days**. Choosing **Custom days** immediately reveals the weekday
    selector.
 2. Use **Add** under **Task times** to include another time only when needed.
-3. Choose the light color and optionally configure completion triggers.
+3. Choose the light color. Turn on **Preview color on light** to test it live;
+   the light turns off when previewing stops or the reminder editor closes.
+4. Optionally configure completion triggers.
 
 For completion, choose **Add trigger**. The editor is the same trigger editor
 used by Home Assistant automations. For a physical button or remote, switch to

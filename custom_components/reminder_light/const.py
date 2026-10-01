@@ -18,6 +18,7 @@ CONF_REMINDER_NAME = "reminder_name"
 CONF_REMINDER_TIMES = "reminder_times"
 CONF_WEEKDAYS = "weekdays"
 CONF_REMINDER_COLOR = "reminder_color"
+CONF_TEST_COLOR = "test_color"
 CONF_COMPLETION_TRIGGERS = "completion_triggers"
 CONF_ENABLED = "enabled"
 

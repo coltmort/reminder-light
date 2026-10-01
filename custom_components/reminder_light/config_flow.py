@@ -9,6 +9,7 @@ from uuid import uuid4
 import probatio
 
 from homeassistant import config_entries
+from homeassistant.components import websocket_api
 from homeassistant.config_entries import (
     SOURCE_USER,
     ConfigEntry,
@@ -18,7 +19,7 @@ from homeassistant.config_entries import (
     SubentryFlowContext,
     SubentryFlowResult,
 )
-from homeassistant.core import callback
+from homeassistant.core import HomeAssistant, callback
 from homeassistant.exceptions import HomeAssistantError
 from homeassistant.helpers import selector
 from homeassistant.helpers.trigger import async_validate_trigger_config
@@ -33,6 +34,7 @@ from .const import (
     CONF_REMINDER_NAME,
     CONF_REMINDER_TIMES,
     CONF_ROTATION_SECONDS,
+    CONF_TEST_COLOR,
     CONF_WEEKDAYS,
     DEFAULT_BRIGHTNESS,
     DEFAULT_ENABLED,
@@ -46,6 +48,7 @@ from .const import (
     SUBENTRY_TYPE_REMINDER,
     WEEKDAYS,
 )
+from .preview import async_start_color_preview
 
 CONF_SCHEDULE_PATTERN = "schedule_pattern"
 CONF_TASK_TIME = "time"
@@ -153,6 +156,13 @@ class ReminderSubentryFlow(ConfigSubentryFlow):
 
     _initialized = False
 
+    @staticmethod
+    @override
+    async def async_setup_preview(hass: HomeAssistant) -> None:
+        """Set up the live color preview API."""
+
+        websocket_api.async_register_command(hass, async_start_color_preview)
+
     async def async_step_user(
         self, user_input: dict[str, Any] | None = None
     ) -> SubentryFlowResult:
@@ -209,6 +219,7 @@ class ReminderSubentryFlow(ConfigSubentryFlow):
             if not errors:
                 data = dict(user_input)
                 data.pop(CONF_SCHEDULE_PATTERN, None)
+                data.pop(CONF_TEST_COLOR, None)
                 data[CONF_REMINDER_ID] = self._reminder_id
                 data[CONF_REMINDER_NAME] = name
                 data[CONF_REMINDER_TIMES] = sorted(times)
@@ -219,6 +230,7 @@ class ReminderSubentryFlow(ConfigSubentryFlow):
             step_id=step_id,
             data_schema=_reminder_schema(user_input or self._data),
             errors=errors,
+            preview=DOMAIN,
         )
 
     def _initialize(self, values: dict[str, Any], reconfigure: bool) -> None:
@@ -351,6 +363,10 @@ def _reminder_schema(values: dict[str, Any]) -> probatio.Schema:
                 CONF_REMINDER_COLOR,
                 default=values.get(CONF_REMINDER_COLOR, list(DEFAULT_REMINDER_COLOR)),
             ): selector.ColorRGBSelector(),
+            probatio.Required(
+                CONF_TEST_COLOR,
+                default=values.get(CONF_TEST_COLOR, False),
+            ): selector.BooleanSelector(),
             probatio.Optional(
                 CONF_COMPLETION_TRIGGERS,
                 default=values.get(CONF_COMPLETION_TRIGGERS, []),

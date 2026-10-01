@@ -41,6 +41,7 @@
             "weekdays": "Days of the week",
             "reminder_times": "Task times",
             "reminder_color": "Light color",
+            "test_color": "Preview color on light",
             "completion_triggers": "Complete when",
             "enabled": "Reminder enabled"
           },
@@ -58,6 +59,7 @@
             "weekdays": "Days of the week",
             "reminder_times": "Task times",
             "reminder_color": "Light color",
+            "test_color": "Preview color on light",
             "completion_triggers": "Complete when",
             "enabled": "Reminder enabled"
           },
